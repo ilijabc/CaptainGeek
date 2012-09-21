@@ -15,6 +15,8 @@ CG_Context_t cgCreateContext(void)
 
 void cgFreeContext(CG_Context_t context)
 {
+    if (context->front_pair)
+        cgFreePair(context->front_pair);
     free(context);
 }
 
@@ -43,9 +45,21 @@ void cgDrawContext(CG_Context_t context)
     glColor3f(0, 0.5, 0);
     glVertex2f(0, context->window_height);
     glEnd();
+    // draw pairs
+    glPushMatrix();
+    glTranslatef(context->window_width / 2, context->window_height / 2, 0);
+    glScalef(2, 2, 1);
+    if (context->front_pair)
+        cgDrawPair(context->front_pair);
+    glPopMatrix();
 }
 
 void cgUpdateContext(CG_Context_t context, float dt)
 {
     // TODO: page turning animation
+}
+
+void cgLoadBook(CG_Context_t context)
+{
+    context->front_pair = cgCreatePair();
 }

@@ -17,6 +17,7 @@ int main(int argc, char **argv)
     context = cgInitContext_GLFW();
     if (!context)
         return 1;
+    cgLoadBook(context);
     cgRunContext_GLFW(context);
     cgFreeContext_GLFW(context);
     return 0;
